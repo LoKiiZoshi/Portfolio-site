@@ -1,0 +1,219 @@
+
+    <!-- Header Section -->
+    <header>            
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>       
+            <a href="{% url 'addinfoperson' %}">Add Your Info</a>  
+            <a href="{% url 'addskill' %}">Add Skills</a>  
+            <a href="{% url 'add_project' %}">Add Projects</a>     
+            <a href="{% url 'add_service' %}">Add Services</a>        
+            <a href="{% url 'add_blog' %}">Add Blog</a> 
+            
+            
+            <div class="dropdown">
+                <a href="#" class="dropbtn" id="user-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div id="login-dropdown" class="dropdown-content">
+                  
+                    <a href="{% url 'logout' %}">Logout</a>  <!-- Added Logout here -->
+                </div>
+            </div>
+           
+      
+            </a>
+                           
+            
+    {% comment %} <!-- User Dropdown -->     
+<div class="dropdown">
+  <a href="#" class="dropbtn" id="user-link">
+    <i class="fas fa-user"></i> <!-- Font Awesome user icon -->
+  </a>
+  <div class="dropdown-content" id="dropdownMenu">
+    <a href="#" id="openLogin">Login</a>
+    <a href="/logout" id="logout">Logout</a>  
+  </div>
+</div>
+
+<!-- The Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <a href="#" class="close-btn close-modal">&times;</a>   
+    <h2>Login</h2>
+                <form method="POST" action="/login" class="register-form" id="login-form">
+                <span id="loginError" th:text="${error}" style="color: red; display: none;"></span>
+                    <div class="form-group">
+                          <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="username" id="your_name" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="password" id="your_pass" placeholder="Password" />
+                    </div>
+                    
+                    
+                    <!--  <div class="g-recaptcha" data-sitekey="6Ld3M_EpAAAAAIRTadljyshZz-XkAcgtkV1Eeb7m">
+                    <!-- Submit Button -->
+                    <div class="form-group form-button">
+                        <input type="submit" name="login" id="signin" class="form-submit" value="Login" />
+                    </div>
+                </form> 
+
+    <!-- Register Link -->
+    <p>Don't have an account? <a href="#" id="openRegister">Register here</a></p>
+  </div> 
+</div>       
+ 
+<!-- The Register Modal -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <a href="#" class="close-btn close-modal">&times;</a>   
+    <h2>Register</h2>
+     <form method="POST" action="/newuserregister" class="register-form" id="register-form">
+                     
+                    <!-- Error message display -->
+                   <span id="registrationSuccess" th:text="${registrationSuccess}" hidden></span>
+ 
+                      
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="firstName" id="firstName" placeholder="First Name" 
+                               required minlength="2" patter n="[A-Za-z]+" title="First Name should be at least 2 letters and only contain letters"/>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label for="lastName"><i class="zmdi zmdi-account"></i></label>
+                        <input type="text" name="lastName" id="lastName" placeholder="Last Name" 
+                               required minlength="2" pattern="[A-Za-z]+" title="Last Name should be at least 2 letters and only contain letters"/>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="username"><i class="zmdi zmdi-account"></i></label>
+                        <input type="text" name="username" id="username" placeholder="Username" 
+                               required minlength="5" pattern="[A-Za-z0-9]+" title="Username must be at least 5 characters and contain only letters and numbers"/>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="password" id="password" placeholder="Password" 
+                               required minlength="8" title="Password should be at least 8 characters"/>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repeat your password" 
+                               required minlength="8" title="Password should be at least 8 characters"/>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="SignUp"/>
+                    </div>
+                </form>
+  </div> 
+</div>   
+ {% endcomment %}
+
+
+<!-- JavaScript for Dropdown & Modals -->
+<script> 
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the registration success flag
+    let registrationSuccess = "[[${registrationSuccess}]]";
+
+    if (registrationSuccess === "true") {
+        document.getElementById("loginModal").style.display = "block";
+    }
+});
+
+// Toggle dropdown menu on user icon click
+document.getElementById("user-link").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.querySelector(".dropdown").classList.toggle("show");
+});
+
+// Close dropdown if clicking outside
+window.addEventListener("click", function (event) {
+    if (!event.target.matches("#user-link")) {
+        document.querySelector(".dropdown").classList.remove("show");
+    }
+});
+
+// Open Login Modal
+document.getElementById("openLogin").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("loginModal").style.display = "block";
+});
+
+// Open Register Modal from Login Modal
+document.getElementById("openRegister").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("registerModal").style.display = "block";
+});
+
+// Close modals when clicking close buttons
+document.querySelectorAll(".close-modal").forEach(btn => {
+    btn.addEventListener("click", function () {
+        this.parentElement.parentElement.style.display = "none";
+    });
+});
+
+// Simulate login process
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    alert("Login successful! Redirecting to dashboard.");
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("user-link").innerHTML = "<i class='fas fa-user'></i> Welcome!";
+});
+
+// Logout functionality
+document.getElementById("logout").addEventListener("click", function (event) {
+    event.preventDefault();
+    alert("Logged out!");
+    document.getElementById("user-link").innerHTML = "<i class='fas fa-user'></i>";
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Get registration success flag from sessionStorage
+    let registrationSuccess = sessionStorage.getItem("registrationSuccess");
+
+    if (registrationSuccess === "true") {
+        document.getElementById("loginModal").style.display = "block";
+        sessionStorage.removeItem("registrationSuccess"); // Clear it after use
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Get registration success flag
+    let registrationSuccess = document.getElementById("registrationSuccess").textContent.trim();
+    if (registrationSuccess === "true") {
+        document.getElementById("loginModal").style.display = "block";
+    }
+
+    // Check if  there's a login error
+    let errorMessage = document.getElementById("loginError").textContent.trim();
+    if (errorMessage !== "") {
+        document.getElementById("loginModal").style.display = "block";
+        alert(errorMessage); // Show alert OR display it inside modal
+    }
+}); 
+
+// Fix login form event listener (Ensure correct ID)
+document.getElementById("login-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    alert("Login successful! Redirecting to dashboard.");
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("user-link").innerHTML = "<i class='fas fa-user'></i> Welcome!";
+});
+
+
+</script> 
+          </nav>
+    </header> 

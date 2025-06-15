@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Person Info</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>   
+    <!-- Include Header -->  
+    {% include 'header.html' %}  
+ 
+    
+    <br> 
+    <br>
+    <br>
+
+
+        <!-- Form Section -->
+        <div class="form-container">
+            <h2>Submit Person Data</h2>  
+
+            <!-- Success & Error Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; font-weight: bold;">
+                        {{ message }}
+                    </p>
+                {% endfor %}  
+            {% endif %}
+
+            <form action="{% url 'addinfoperson' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+
+        <br>
+       
+
+
+    <!-- Include Footer -->
+    {% include 'footer.html' %}
+</body>
+</html>

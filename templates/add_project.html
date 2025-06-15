@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+</head>
+<body>  
+
+  <br>
+  <br>
+  <br>
+ 
+    <!-- Include Header -->
+    {% include 'header.html' %}  
+
+    <!-- Success Message -->
+    {% if success %}
+        <p style="color: green; font-weight: bold;">{{ success }}</p>
+    {% endif %}
+
+    <!-- Error Message -->
+    {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+    {% endif %}
+
+    
+        <!-- Left Side - Project Form -->
+        <div class="form-container">
+            <h2>Submit Project</h2>
+            <form action="{% url 'add_project' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <label>Project Name:</label>
+                {{ form.name }}  <!-- Render Project Name Field -->
+                
+                <label>Description:</label>
+                {{ form.description }}  <!-- Render Description Field -->
+                
+                <label>Upload File (PDF, DOCX, Image, etc.):</label>
+                {{ form.file }}  <!-- Render File Upload Field -->
+                
+                <label>Upload Image:</label>
+                {{ form.image_file }}  <!-- Render Image File Upload Field -->
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <br>
+        <br>
+  
+    <!-- Include Footer -->   
+    {% include 'footer.html' %}
+
+</body>  
+</html>

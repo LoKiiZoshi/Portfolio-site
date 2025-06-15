@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Signup</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        background-color: #ffffff;
+        width: 500px;
+        padding: 30px 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+        position: relative;
+      }
+
+      h2::before {
+        content: "📝";
+        position: absolute;
+        left: 50%;
+        top: -30px;
+        transform: translateX(-50%);
+        font-size: 24px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      label {
+        font-weight: 500;
+        color: #444;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+      }
+
+      input:hover,
+      select:hover,
+      textarea:hover {
+        border-color: #3f51b5;
+        background-color: #fff;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #3f51b5;
+        background-color: #fff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(63, 81, 181, 0.2);
+      }
+
+      button {
+        padding: 12px;
+        background-color: #3f51b5;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #303f9f;
+      }
+
+      .links {
+        margin-top: 25px;
+        font-size: 15px;
+        text-align: center;
+        color: #555;
+      }
+
+      .links a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #3f51b5;
+        margin: 0 6px;
+      }
+
+      .links a:hover {
+        color: #e91e63;
+      }
+
+      .errorlist {
+        color: red;
+        font-size: 14px;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Signup</h2>
+      <form method="post">
+        {% csrf_token %}
+
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }} {{ form.username.errors }}
+
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }} {{ form.password1.errors }}
+
+        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+        {{ form.password2 }} {{ form.password2.errors }}
+
+        <button type="submit">Signup</button>
+      </form>
+
+      <div class="links">
+        ✅ <a href="{% url 'login' %}">Already signed up? Login</a> | 🌐🎨
+        <a href="{% url 'index' %}">Go to Portfolio Site View</a>
+      </div>
+    </div>
+  </body>
+</html>

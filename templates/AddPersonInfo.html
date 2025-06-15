@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">   
+</head> 
+<body> 
+
+   
+
+  
+    <!-- Include Header -->
+    {% include 'Adminheader.html' %}
+ 
+    
+    
+   <div class="container">
+   
+   
+   <!-- Success Message -->
+  <p style="color: green; font-weight: bold;" th:if="${success}" th:text="${success}"></p>
+
+    <!-- Error Message -->
+    <p style="color: red; font-weight: bold;" th:if="${error}" th:text="${error}"></p>
+    <br> 
+    <!-- Form Section -->
+    <div class="form-container">
+        <h2>Submit Person Data</h2>
+        
+        <!-- Success & Error Messages -->
+        <p style="color: green; font-weight: bold;" th:if="${success}" th:text="${success}"></p>
+        <p style="color: red; font-weight: bold;" th:if="${error}" th:text="${error}"></p>
+
+        <form action="/Addpersoninfo" method="post" enctype="multipart/form-data">
+            <label>Full Name:</label>
+            <input type="text" name="fullName" required>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Address:</label>
+            <input type="text" name="address" required>
+
+            <label>Number:</label>
+            <input type="text" name="number" required>
+
+            <label>Skill:</label>
+            <input type="text" name="skill" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+   
+
+
+
+
+
+ 
+   
+   
+  
+  <!-- Include Footer -->
+  {% include 'footer.html' %}
+
+
+</body>
+</html>

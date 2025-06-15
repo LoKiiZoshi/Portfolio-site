@@ -1,0 +1,129 @@
+<header>
+    <nav>    
+        <a href="#home">Home</a>  
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>  
+        <a href="#skills">Skills</a>  
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <div class="dropdown">
+            <a href="#" class="dropbtn" id="user-link">
+                <i class="fas fa-user"></i>
+            </a>
+            <div id="login-dropdown" class="dropdown-content">
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>      
+       
+ 
+        </a> 
+        
+        {% comment %} <!-- User Dropdown --> 
+        <div class="dropdown">
+            <a href="#" class="dropbtn" id="user-link">
+                <i class="fas fa-user"></i>
+            </a>
+            <div class="dropdown-content" id="dropdownMenu">
+                {% if user.is_authenticated %}
+                    <a href="/signout" id="logout">Logout</a>  
+                {% else %}
+                    <a href="#" id="openLogin">Login</a>
+                {% endif %}
+            </div>
+        </div> {% endcomment %}    
+    </nav>
+</header>
+
+{% comment %} <!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn close-modal">&times;</a>
+        <h2>Login</h2>
+        <form method="POST" action="/signin/" id="login-form"> 
+            {% csrf_token %}
+            <span id="loginError" style="color: red; display: none;"></span>
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required />
+            </div>
+            <div class="form-group form-button">
+                <input type="submit" class="form-submit" value="Login" />
+            </div>
+        </form> 
+        <p>Don't have an account? <a href="#" id="openRegister">Register here</a></p>
+    </div> 
+</div>
+
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn close-modal">&times;</a>   
+        <h2>Register</h2>
+        <form method="POST" action="/signup/" id="register-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required minlength="5" />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required minlength="8" />
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required minlength="8" />
+            </div>
+            <div class="form-group form-button">
+                <input type="submit" class="form-submit" value="Sign Up"/>
+            </div>
+        </form> 
+    </div>  
+</div>  
+
+ {% endcomment %}
+ 
+
+<!-- JavaScript for Dropdown & Modals -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        let dropdown = document.querySelector(".dropdown-content");
+        if (!event.target.closest(".dropdown")) {
+            dropdown.style.display = "none";
+        }
+    });
+
+    // Toggle dropdown menu
+    document.getElementById("user-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        let dropdown = document.querySelector(".dropdown-content");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    // Open Login Modal
+    document.getElementById("openLogin")?.addEventListener("click", function (event) {
+        event.preventDefault();
+        document.getElementById("loginModal").style.display = "block";
+    });
+
+    // Open Register Modal from Login Modal
+    document.getElementById("openRegister")?.addEventListener("click", function (event) {
+        event.preventDefault();
+        document.getElementById("loginModal").style.display = "none";
+        document.getElementById("registerModal").style.display = "block";
+    });
+
+    // Close modals
+    document.querySelectorAll(".close-modal").forEach(btn => {
+        btn.addEventListener("click", function () {
+            this.parentElement.parentElement.style.display = "none";
+        });
+    });
+
+    // Hide messages after 3 seconds
+    setTimeout(() => {
+        document.querySelectorAll(".message").forEach(msg => msg.style.display = "none");
+    }, 3000);
+});
+</script>  

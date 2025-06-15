@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <!-- Include Header -->
+  {% include 'header.html' %}    
+
+  <br>
+  <br>
+  <br>
+    <div class="form-container">
+      <h2>Submit Client Service</h2>
+      
+
+      <!-- Success/Error Messages --> 
+      {% if messages %}
+        {% for message in messages %}
+          <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; font-weight: bold;">
+            {{ message }}
+          </p>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Service Submission Form -->
+      <form action="{% url 'add_service' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+</div> 
+
+<br>
+<br>
+
+  <!-- Include Footer -->
+  {% include 'footer.html' %}
+
+</body>
+</html>

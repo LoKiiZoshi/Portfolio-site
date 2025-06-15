@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{%load static%} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!-- Include Header -->
+  {% include 'header.html' %}
+
+  <!-- Success/Error Message -->
+
+
+  <br>
+  <br>
+  <br>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; font-weight: bold;">
+        {{ message }}
+      </p>
+    {% endfor %}
+  {% endif %}
+
+    <div class="form-container">  
+      <h2>Submit a Blog</h2>
+      
+      <form action="{% url 'add_blog' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="title">Title:</label>
+        {{ form.title }}  <!-- Render Title Field -->
+        
+        <label for="content">Content:</label>
+        {{ form.content }}  <!-- Render Content Field -->
+        
+        <label for="image">Upload Image:</label>
+        {{ form.image }}  <!-- Render Image Upload Field -->
+        
+        <label for="video">Upload Video:</label>  
+        {{ form.video }}  <!-- Render Video Upload Field -->
+        
+        <button type="submit">Submit Blog</button>
+      </form>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <!-- Include Footer -->   
+  {% include 'footer.html' %}
+
+</body>
+</html>
