@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Error Pages</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .error-section {
+            margin: 40px 0;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .error-section:hover {
+            transform: translateY(-5px);
+        }
+        .error-section h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .error-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .error-200 {
+            border-left: 5px solid #27ae60;
+        }
+        .error-400 {
+            border-left: 5px solid #e67e22;
+        }
+        .error-500 {
+            border-left: 5px solid #c0392b;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .animation {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            .error-section h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Custom HTTP Error Pages</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="error-section error-200 animation">
+            <div class="container">
+                <h2>200 - OK</h2>
+                <p>The request was successful, and the server has returned the requested resource.</p>
+                <p>This status code indicates that everything is working as expected.</p>
+                <a href="#" class="btn" onclick="showDetails('200')">Learn More</a>
+                <div id="details-200" style="display: none; margin-top: 20px;">
+                    <p>Details: The 200 OK status code is the standard response for a successful HTTP request.</p>
+                    <p>It means the server has fulfilled the request, and the response contains the requested data.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="error-section error-400 animation">
+            <div class="container">
+                <h2>400 - Bad Request</h2>
+                <p>The server cannot process the request due to a client error, such as invalid syntax.</p>
+                <p>This could be caused by malformed request data or missing parameters.</p>
+                <a href="#" class="btn" onclick="showDetails('400')">Learn More</a>
+                <div id="details-400" style="display: none; margin-top: 20px;">
+                    <p>Details: The 400 Bad Request status code indicates that the server cannot understand the request.</p>
+                    <p>Common causes include incorrect URL, invalid form data, or missing headers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="error-section error-500 animation">
+            <div class="container">
+                <h2>500 - Internal Server Error</h2>
+                <p>The server encountered an unexpected condition that prevented it from fulfilling the request.</p>
+                <p>This is a generic error indicating a problem on the server side.</p>
+                <a href="#" class="btn" onclick="showDetails('500')">Learn More</a>
+                <div id="details-500" style="display: none; margin-top: 20px;">
+                    <p>Details: The 500 Internal Server Error is a general error message when the server fails.</p>
+                    <p>It could be due to coding errors, database issues, or server misconfiguration.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Custom Error Pages. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showDetails(errorCode) {
+            const detailsDiv = document.getElementById(`details-${errorCode}`);
+            if (detailsDiv.style.display === 'none') {
+                detailsDiv.style.display = 'block';
+                detailsDiv.classList.add('animation');
+            } else {
+                detailsDiv.style.display = 'none';
+            }
+        }
+
+        // Add event listener for window load to trigger animations
+        window.addEventListener('load', () => {
+            const sections = document.querySelectorAll('.error-section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('animation');
+                }, index * 200);
+            });
+        });
+
+        // Prevent default link behavior for demo
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
