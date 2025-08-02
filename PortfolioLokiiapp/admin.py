@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Person, Skill, Project, Blog, ClientService
 
+
 # Register Person model
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
